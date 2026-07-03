@@ -7,18 +7,22 @@ require("./config/db");
 
 const app = express();
 
-const userRoutes = require("./routes/user");
-const roleRoutes = require("./routes/role");
-
 app.use(express.json());
 
+const userRoutes = require("./routes/user");
+const roleRoutes = require("./routes/role");
+const permissionRoutes = require("./routes/permissionRoutes");
+
 app.use("/user", userRoutes);
-app.use("/role", roleRoutes);
+app.use("/api/roles", roleRoutes);      
+app.use("/api/permissions", permissionRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-app.listen(3000, () => {
-    console.log("Server started on port 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
